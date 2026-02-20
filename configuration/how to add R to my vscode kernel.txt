@@ -1,0 +1,32 @@
+This works, Use anaconda prompt!, then install based on below.
+
+Perfect — thanks for the path. Below are exact copy‑paste commands (for Anaconda Prompt or PowerShell) to register your existing CRAN R at E:\ProgramFile\R-4.5.2 as a Jupyter/VS Code kernel, verify it, and pick it inside VS Code.
+
+Step 0 — open Anaconda Prompt
+
+Start → Anaconda Prompt (so you can run conda/jupyter commands)
+Step 1 — make sure Jupyter is installed in the conda environment you’ll use If you normally use the base env: conda activate base conda install -c conda-forge jupyterlab notebook -y
+
+(Or activate the env you prefer: conda activate myenv)
+
+Step 2 — install IRkernel into your CRAN R and register a kernelspec Run these two commands (exactly, using the Rscript path you provided):
+
+"E:\ProgramFile\R-4.5.2\bin\x64\Rscript.exe" -e "install.packages(c('IRkernel','repr','IRdisplay'), repos='https://cloud.r-project.org')"
+
+"E:\ProgramFile\R-4.5.2\bin\x64\Rscript.exe" -e "IRkernel::installspec(user = TRUE, name = 'ir-cran-4.5.2', displayname = 'R 4.5.2 (CRAN)')"
+
+Notes:
+
+The first command installs IRkernel and a couple helper packages.
+The second registers a kernelspec (user-level) named ir-cran-4.5.2 and shown to users as "R 4.5.2 (CRAN)".
+Step 3 — confirm Jupyter sees the kernel In the same prompt: jupyter kernelspec list
+
+You should see an entry like: ir-cran-4.5.2 C:\Users<you>\AppData\Roaming\jupyter\kernels\ir-cran-4.5.2
+
+Step 4 — open VS Code and select the kernel
+
+In VS Code, ensure the Python and Jupyter extensions are installed.
+(Important) Select the Python interpreter that will start the Jupyter server:
+Ctrl+Shift+P → "Jupyter: Select Interpreter to Start Jupyter Server" → choose the conda env you used (e.g., Python from base).
+Open or create a .ipynb notebook (Command Palette → "Jupyter: Create New Blank Notebook").
+Click the kernel picker (top right) and choose "R 4.5.2 (CRAN)".
